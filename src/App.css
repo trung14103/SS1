@@ -7,8 +7,14 @@ header{
   font-weight: bold;
 }
 
-.nav-opts {
-  color: skyblue;
+.nav-link {
+  color: #000 !important;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  color: skyblue !important;
+  font-size: 19px;
 }
 
 .wrapper {
@@ -111,4 +117,10 @@ h3 {
 }
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute;
+}
+
+.thead-color {
+  color: #000;
+  background-color: #66b3ff;
+  border-color: #fff;
 }

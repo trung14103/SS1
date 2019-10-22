@@ -53,8 +53,8 @@ export default class StudentList extends Component {
         </Button>
         </Link> 
       <Table striped bordered hover>
-        <thead>
-          <tr className ="info">
+        <thead className="thead-color">
+          <tr>
             <th>Student ID</th>
             <th>First Name</th>
             <th>Last Name</th>

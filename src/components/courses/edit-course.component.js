@@ -87,8 +87,8 @@ export default class EditCourse extends Component {
           <Form.Control type="text" value={this.state.course_prerequisites} onChange={this.onChangeCoursePre} required/>
         </Form.Group>
 
-        <Button variant="danger" size="lg" block="block" type="submit">
-          Create Course
+        <Button variant="success" size="lg" block="block" type="submit">
+          Update Course
         </Button>
       </Form>
     </div>);

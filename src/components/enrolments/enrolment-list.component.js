@@ -53,7 +53,7 @@ export default class EnrolmentList extends Component {
         </Button>
         </Link> 
       <Table striped bordered hover>
-        <thead>
+        <thead className="thead-color">
           <tr>
             <th>Student</th>
             <th>Course</th>

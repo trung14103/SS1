@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
 import { Fade } from 'react-slideshow-image';
-import fadeProperties from './homescrp.js';
 import image1 from '../img/img1.jpg';
 import image2 from '../img/img2.jpg';
 import image3 from '../img/img3.jpg';
+
+const fadeProperties = {
+    duration: 5000,
+    transitionDuration: 500,
+    infinite: false,
+    indicators: true,
+    onChange: (oldIndex, newIndex) => {
+      console.log(`fade transition from ${oldIndex} to ${newIndex}`);
+    }
+}
 
 export default class Homepage extends Component {
 

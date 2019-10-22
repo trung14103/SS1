@@ -54,8 +54,8 @@ export default class CourseList extends Component {
         </Button>
         </Link> 
       <Table striped bordered hover>
-        <thead>
-          <tr className = "info">
+        <thead className="thead-color">
+          <tr>
             <th>Course ID</th>
             <th>Course Name</th>
             <th>Prerequisites</th>

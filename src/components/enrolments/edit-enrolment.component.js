@@ -114,7 +114,7 @@ export default class EditEnrolment extends Component {
           </Form.Control>
         </Form.Group>
 
-        <Button variant="danger" size="lg" block="block" type="submit">
+        <Button variant="success" size="lg" block="block" type="submit">
           Update Enrolment
         </Button>
       </Form>
