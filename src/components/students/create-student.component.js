@@ -73,6 +73,7 @@ export default class CreateStudent extends Component {
 
   render() {
     return (<div className="form-wrapper">
+            <h1 className="page-header">Create Student</h1>
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Name">
           <Form.Label>Student ID</Form.Label>

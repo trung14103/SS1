@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
-import logo from "./logo.jpg";
+import logo from "./img/logo.png";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -26,12 +26,12 @@ function App() {
   return (<Router>
     <div className="App">
       <header className="App-header">
-        <Navbar>
+        <Navbar className="bg-dark">
           <Container>
 
             <Navbar.Brand>
             <a className="navbar-brand" href="/">
-              <img src={logo} width="125" height="125" alt="FIT PORTAL" />
+              <img src={logo} alt="FIT PORTAL" />
             </a>
             </Navbar.Brand>
 

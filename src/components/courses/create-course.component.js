@@ -57,6 +57,7 @@ export default class CreateCourse extends Component {
 
   render() {
     return (<div className="form-wrapper">
+      <h1 className="page-header">Create Course</h1>
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Name">
           <Form.Label>Course Id</Form.Label>

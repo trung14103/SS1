@@ -79,6 +79,7 @@ export default class EditEnrolment extends Component {
 
   render() {
     return (<div className="form-wrapper">
+      <h1 className="page-header">Update Enrolment</h1>
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Id">
           <Form.Label>Student</Form.Label>
