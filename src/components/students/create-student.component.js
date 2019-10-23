@@ -76,27 +76,27 @@ export default class CreateStudent extends Component {
             <h1 className="page-header">Create Student</h1>
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Name">
-          <Form.Label>Student ID</Form.Label>
+          <Form.Label>Student ID<span> *</span></Form.Label>
           <Form.Control type="number" placeholder="Student ID" value={this.state.student_id} onChange={this.onChangeStudentId} required/>
         </Form.Group>
 
         <Form.Group controlId="Name">
-          <Form.Label>First Name</Form.Label>
+          <Form.Label>First Name<span> *</span></Form.Label>
           <Form.Control type="text" placeholder="First Name" value={this.state.student_firstName} onChange={this.onChangeStudentFirstName} required/>
         </Form.Group>
 
         <Form.Group controlId="Name">
-          <Form.Label>Last Name</Form.Label>
+          <Form.Label>Last Name<span> *</span></Form.Label>
           <Form.Control type="text" placeholder="Last Name" value={this.state.student_lastName} onChange={this.onChangeStudentLastName} required/>
         </Form.Group>
 
         <Form.Group controlId="Address">
           <Form.Label>Address</Form.Label>
-          <Form.Control type="text" placeholder="Address" value={this.state.student_address} onChange={this.onChangeStudentAddr} required/>
+          <Form.Control type="text" placeholder="Address" value={this.state.student_address} onChange={this.onChangeStudentAddr} />
         </Form.Group>
 
         <Form.Group controlId="Name">
-          <Form.Label>Date Of Birth</Form.Label>
+          <Form.Label>Date Of Birth<span> *</span></Form.Label>
           <Form.Control type="date" value={this.state.student_dob} onChange={this.onChangeStudentDob} required/>
         </Form.Group>
 

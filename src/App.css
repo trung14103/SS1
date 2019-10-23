@@ -8,6 +8,10 @@ header{
   border-bottom: 1px solid rgb(189, 189, 189);
 }
 
+.navbar {
+  padding: 0.25rem 1rem;
+}
+
 .justify-content-end{
   font-size: 18px;
   font-weight: bold;
@@ -129,4 +133,8 @@ h3 {
   color: #222;
   text-align: center;
   padding: 10px;
+}
+
+label span{
+  color: #f00;
 }

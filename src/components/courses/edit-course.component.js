@@ -74,18 +74,18 @@ export default class EditCourse extends Component {
       <h1 className="page-header">Update Course</h1>
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Name">
-          <Form.Label>Course Id</Form.Label>
+          <Form.Label>Course Id<span> *</span></Form.Label>
           <Form.Control type="number" value={this.state.course_id} onChange={this.onChangeCourseId} required/>
         </Form.Group>
 
         <Form.Group controlId="Name">
-          <Form.Label>Course Name</Form.Label>
+          <Form.Label>Course Name<span> *</span></Form.Label>
           <Form.Control type="text" value={this.state.course_name} onChange={this.onChangeCourseName} required/>
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Prerequisites</Form.Label>
-          <Form.Control type="text" value={this.state.course_prerequisites} onChange={this.onChangeCoursePre} required/>
+          <Form.Control type="text" value={this.state.course_prerequisites} onChange={this.onChangeCoursePre} />
         </Form.Group>
 
         <Button variant="success" size="lg" block="block" type="submit">

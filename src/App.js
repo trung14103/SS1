@@ -31,7 +31,7 @@ function App() {
 
             <Navbar.Brand>
             <a className="navbar-brand" href="/">
-              <img src={logo} alt="FIT PORTAL" />
+              <img src={logo} width="40" height="40" alt="FIT PORTAL" />
             </a>
             </Navbar.Brand>
 

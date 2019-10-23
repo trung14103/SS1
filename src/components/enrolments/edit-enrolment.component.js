@@ -82,17 +82,17 @@ export default class EditEnrolment extends Component {
       <h1 className="page-header">Update Enrolment</h1>
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Id">
-          <Form.Label>Student</Form.Label>
+          <Form.Label>Student<span> *</span></Form.Label>
           <Form.Control type="number" value={this.state.student} onChange={this.onChangeStudent} required/>
         </Form.Group>
 
         <Form.Group controlId="Name">
-          <Form.Label>Course</Form.Label>
+          <Form.Label>Course<span> *</span></Form.Label>
           <Form.Control type="text" value={this.state.course} onChange={this.onChangeCourse} required/>
         </Form.Group>
 
         <Form.Group controlId="Name">
-          <Form.Label>Semester</Form.Label>
+          <Form.Label>Semester<span> *</span></Form.Label>
           <Form.Control as="select" value={this.state.semester} onChange={this.onChangeSemester} required>
             <option>1</option>
             <option>2</option>

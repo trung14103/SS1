@@ -60,18 +60,18 @@ export default class CreateCourse extends Component {
       <h1 className="page-header">Create Course</h1>
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Name">
-          <Form.Label>Course Id</Form.Label>
+          <Form.Label>Course Id<span> *</span></Form.Label>
           <Form.Control type="number" placeholder="Course ID"value={this.state.course_id} onChange={this.onChangeCourseId} required/>
         </Form.Group>
 
         <Form.Group controlId="Name">
-          <Form.Label>Course Name</Form.Label>
+          <Form.Label>Course Name<span> *</span></Form.Label>
           <Form.Control type="text" placeholder="Course Name" value={this.state.course_name} onChange={this.onChangeCourseName} required/>
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Prerequisites</Form.Label>
-          <Form.Control type="text" placeholder="Prerequisites" value={this.state.course_prerequisites} onChange={this.onChangeCoursePre} required/>
+          <Form.Control type="text" placeholder="Prerequisites" value={this.state.course_prerequisites} onChange={this.onChangeCoursePre} />
         </Form.Group>
 
         <Button variant="danger" size="lg" block="block" type="submit">
