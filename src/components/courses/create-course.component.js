@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
+import Validator from '../utils/validator';
 import axios from 'axios';
 
 export default class CreateCourse extends Component {
@@ -9,9 +10,7 @@ export default class CreateCourse extends Component {
     super(props)
 
     // Setting up functions
-    this.onChangeCourseId = this.onChangeCourseId.bind(this);
-    this.onChangeCourseName = this.onChangeCourseName.bind(this);
-    this.onChangeCoursePre = this.onChangeCoursePre.bind(this);
+    this.onHandleInput = this.onHandleInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     // Setting up state
@@ -19,23 +18,36 @@ export default class CreateCourse extends Component {
       course_id: '',
       course_name: '',
       course_prerequisites: '',
-    }
+      errors: {}
+    };
+
+    // Validation
+    const requiredWith = (value, field, state) => (!state[field] && !value) || !!value;
+    const rules = [
+      {
+        field: 'course_id',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Course ID field is required.',
+      },
+      {
+        field: 'course_name',
+        method: 'isEmpty',
+        validWhen: false,
+        message: 'Course Name field is required.',
+      },
+    ];
+    this.validator = new Validator(rules);
   }
 
-  onChangeCourseId(e) {
-    this.setState({ course_id: e.target.value })
-  }
-
-  onChangeCourseName(e) {
-    this.setState({ course_name: e.target.value })
-  }
-
-  onChangeCoursePre(e) {
-    this.setState({ course_prerequisites: e.target.value })
-  }
+  onHandleInput = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
   onSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     const courseObject = {
       course_id: this.state.course_id,
@@ -43,35 +55,44 @@ export default class CreateCourse extends Component {
       course_prerequisites: this.state.course_prerequisites
     };
 
-    axios.post('http://localhost:4000/courses/create-course', courseObject)
-      .then(res => console.log(res.data));
-
     this.setState({
-      course_id: '',
-      course_name: '',
-      course_prerequisites: '',
+      errors: this.validator.validate(this.state),
     });
 
-    this.props.history.push('/course-list');
+    axios.post('http://localhost:4000/courses/create-course', courseObject)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          course_id: '',
+          course_name: '',
+          course_prerequisites: '',
+        });
+        this.props.history.push('/course-list');
+      });
+
   }
 
   render() {
-    return (<div className="form-wrapper">
+    const {errors} = this.state;
+    return (
+      <div className="form-wrapper">
       <h1 className="page-header">Create Course</h1>
       <Form onSubmit={this.onSubmit}>
         <Form.Group controlId="Name">
           <Form.Label>Course Id<span> *</span></Form.Label>
-          <Form.Control type="number" placeholder="Course ID"value={this.state.course_id} onChange={this.onChangeCourseId} required/>
+          <Form.Control type="number" placeholder="Course ID"value={this.state.course_id} onChange={this.onHandleInput} required/>
+          {errors.course_id && <div className="validation" style={{display: 'block'}}>{errors.course_id}</div>}
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Course Name<span> *</span></Form.Label>
-          <Form.Control type="text" placeholder="Course Name" value={this.state.course_name} onChange={this.onChangeCourseName} required/>
+          <Form.Control type="text" placeholder="Course Name" value={this.state.course_name} onChange={this.onHandleInput} required/>
+          {errors.course_name && <div className="validation" style={{display: 'block'}}>{errors.course_name}</div>}
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Prerequisites</Form.Label>
-          <Form.Control type="text" placeholder="Prerequisites" value={this.state.course_prerequisites} onChange={this.onChangeCoursePre} />
+          <Form.Control type="text" placeholder="Prerequisites" value={this.state.course_prerequisites} onChange={this.onHandleInput} />
         </Form.Group>
 
         <Button variant="danger" size="lg" block="block" type="submit">
