@@ -47,7 +47,13 @@ export default class CourseList extends Component {
 
 
   render() {
-    return (<div className="table-wrapper">
+    return (
+    <div className="table-wrapper">
+      <div className="page-head">
+        <div className="pghead2">
+          <h1 className="page-head">Course List</h1>
+        </div>
+      </div>
       <Link className="create-link" to={"/create-course/"}>
       <Button size="lg" variant="primary">
           Create

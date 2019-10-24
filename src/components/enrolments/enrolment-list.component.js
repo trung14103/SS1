@@ -46,7 +46,13 @@ export default class EnrolmentList extends Component {
 
 
   render() {
-    return (<div className="table-wrapper">
+    return (
+      <div className="table-wrapper">
+      <div className="page-head"> 
+      <div className="pghead1">
+        <h1 className="page-head">Enrolment List</h1>
+        </div>
+      </div>
       <Link className="create-link" to={"/create-enrolment/"}>
       <Button variant="primary" size="lg">
           Create

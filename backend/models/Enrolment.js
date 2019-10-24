@@ -20,8 +20,7 @@ let enrolmentSchema = new Schema({
         default: 'F'
     }
 },{
-        collection: 'enrolments' 
-        
+        collection: 'enrolments'    
 });
 
 const Enrolment = mongoose.model('Enrolment', enrolmentSchema);

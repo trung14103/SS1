@@ -46,7 +46,13 @@ export default class StudentList extends Component {
 
 
   render() {
-    return (<div className="table-wrapper">
+    return (
+    <div className="table-wrapper">
+      <div className="page-head">
+        <div className="pghead3">
+          <h1 className="page-head">Student List</h1>
+        </div>
+      </div>
       <Link className="create-link" to={"/create-student/"}>
       <Button size="lg" variant="primary">
           Create
