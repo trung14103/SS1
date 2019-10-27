@@ -4,6 +4,8 @@ let mongoose = require('mongoose'),
 
 //  Model
 let enrolmentSchema = require('../models/Enrolment');
+let studentSchema = require('../models/Student');
+let courseSchema = require('../models/Course');
 
 // CREATE 
 router.route('/create-enrolment').post((req, res, next) => {
@@ -34,10 +36,10 @@ router.route('/edit-enrolment/:id').get((req, res) => {
     if (error) {
       return next(error);
     } else {
-      res.json(data);
-    }
-  })
-})
+          res.json(data);
+        }
+  });
+});
 
 
 // Update 
@@ -47,7 +49,6 @@ router.route('/update-enrolment/:id').put((req, res, next) => {
   }, (error, data) => {
     if (error) {
       return next(error);
-      console.log(error);
     } else {
       res.json(data);
       console.log('Course updated successfully !');
