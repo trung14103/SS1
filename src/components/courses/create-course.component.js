@@ -15,29 +15,11 @@ export default class CreateCourse extends Component {
 
     // Setting up state
     this.state = {
-      course_id: '',
-      course_name: '',
-      course_prerequisites: '',
+      id: '',
+      name: '',
+      prerequisites: '',
       errors: {}
     };
-
-    // Validation
-    const requiredWith = (value, field, state) => (!state[field] && !value) || !!value;
-    const rules = [
-      {
-        field: 'course_id',
-        method: 'isEmpty',
-        validWhen: false,
-        message: 'Course ID field is required.',
-      },
-      {
-        field: 'course_name',
-        method: 'isEmpty',
-        validWhen: false,
-        message: 'Course Name field is required.',
-      },
-    ];
-    this.validator = new Validator(rules);
   }
 
   onHandleInput = (e) => {
@@ -50,25 +32,27 @@ export default class CreateCourse extends Component {
     e.preventDefault();
 
     const courseObject = {
-      course_id: this.state.course_id,
-      course_name: this.state.course_name,
-      course_prerequisites: this.state.course_prerequisites
+      id: this.state.id,
+      name: this.state.name,
+      prerequisites: this.state.prerequisites
     };
 
-    this.setState({
-      errors: this.validator.validate(this.state),
-    });
 
     axios.post('http://localhost:4000/courses/create-course', courseObject)
       .then(res => {
         console.log(res.data);
         this.setState({
-          course_id: '',
-          course_name: '',
-          course_prerequisites: '',
+          id: '',
+          name: '',
+          prerequisites: '',
         });
         this.props.history.push('/course-list');
-      });
+      })
+        .catch((err) => {
+          this.setState({
+            errors: err.response.data
+          })
+        });
 
   }
 
@@ -78,21 +62,21 @@ export default class CreateCourse extends Component {
       <div className="form-wrapper">
       <h1 className="page-header">Create Course</h1>
       <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="Name">
+        <Form.Group controlId="ID">
           <Form.Label>Course Id<span> *</span></Form.Label>
-          <Form.Control type="number" placeholder="Course ID"value={this.state.course_id} onChange={this.onHandleInput} required/>
-          {errors.course_id && <div className="validation" style={{display: 'block'}}>{errors.course_id}</div>}
+          <Form.Control type="text" name ="id" placeholder="Course ID"value={this.state.id} onChange={this.onHandleInput}/>
+          {errors.id && <div className="validation" style={{display: 'block'}}>{errors.id}</div>}
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Course Name<span> *</span></Form.Label>
-          <Form.Control type="text" placeholder="Course Name" value={this.state.course_name} onChange={this.onHandleInput} required/>
-          {errors.course_name && <div className="validation" style={{display: 'block'}}>{errors.course_name}</div>}
+          <Form.Control type="text" name = "name" placeholder="Course Name" value={this.state.name} onChange={this.onHandleInput}/>
+          {errors.name && <div className="validation" style={{display: 'block'}}>{errors.name}</div>}
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Prerequisites</Form.Label>
-          <Form.Control type="text" placeholder="Prerequisites" value={this.state.course_prerequisites} onChange={this.onHandleInput} />
+          <Form.Control type="text" name ="prerequisites" placeholder="Prerequisites" value={this.state.prerequisites} onChange={this.onHandleInput} />
         </Form.Group>
 
         <Button variant="danger" size="lg" block="block" type="submit">

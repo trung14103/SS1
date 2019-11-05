@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 let enrolmentSchema = new Schema({
     student: {
-        type: Number,
+        type: String,
         required: true
     },
     course: {
@@ -17,8 +17,6 @@ let enrolmentSchema = new Schema({
     },
     finalGrade: {
         type: String,
-        enum:['P', 'G', 'E', 'F'],
-        default: 'F'
     }
 },{
         collection: 'enrolments'    

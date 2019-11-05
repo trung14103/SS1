@@ -4,22 +4,35 @@ let mongoose = require('mongoose'),
 
 //  Model
 let enrolmentSchema = require('../models/Enrolment');
-let studentSchema = require('../models/Student');
-let courseSchema = require('../models/Course');
+// let studentSchema = require('../models/Student');
+// let courseSchema = require('../models/Course');
 
-// CREATE 
+//Validator
+const enrolValidator = require('../validation/enrolment');
+
+// CREATE enrolments
 router.route('/create-enrolment').post((req, res, next) => {
+    // const {errors, isValid} = enrolValidator(req.body);
+    // if (!isValid) {
+    //     res.status(404).json(errors);
+    // }
+
+    // const studentId = req.student;
+    // const courseId = req.course;
+    //
+    // enrolmentSchema.find({student: studentId, course: courseId})
+
     enrolmentSchema.create(req.body, (error, data) => {
     if (error) {
       return next(error);
     } else {
-      console.log(data);
+      // console.log(data);
       res.json(data);
     }
   })
 });
 
-// READ 
+// READ enrolments
 router.route('/').get((req, res) => {
     enrolmentSchema.find((error, data) => {
     if (error) {
@@ -30,7 +43,7 @@ router.route('/').get((req, res) => {
   })
 })
 
-// Get Single 
+// Get Single enrolment
 router.route('/edit-enrolment/:id').get((req, res) => {
     enrolmentSchema.findById(req.params.id, (error, data) => {
     if (error) {
@@ -42,8 +55,13 @@ router.route('/edit-enrolment/:id').get((req, res) => {
 });
 
 
-// Update 
+// Update enrolment
 router.route('/update-enrolment/:id').put((req, res, next) => {
+    const {errors, isValid} = enrolValidator(req.body);
+    if (!isValid) {
+        res.status(404).json(errors);
+    }
+
     enrolmentSchema.findByIdAndUpdate(req.params.id, {
     $set: req.body
   }, (error, data) => {
@@ -51,12 +69,12 @@ router.route('/update-enrolment/:id').put((req, res, next) => {
       return next(error);
     } else {
       res.json(data);
-      console.log('Course updated successfully !');
+      // console.log('Enrolment updated successfully !');
     }
   })
 })
 
-// Delete 
+// Delete enrolment
 router.route('/delete-enrolment/:id').delete((req, res, next) => {
     enrolmentSchema.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {

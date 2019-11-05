@@ -5,16 +5,37 @@ let mongoose = require('mongoose'),
 // Student Model
 let studentSchema = require('../models/Student');
 
+//Student Validator
+const studentValidator = require('../validation/student');
+
 // CREATE Student
 router.route('/create-student').post((req, res, next) => {
-  studentSchema.create(req.body, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      console.log(data);
-      res.json(data);
+    const {errors, isValid} = studentValidator(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
     }
-  })
+
+    const studentId = req.body.id;
+
+    studentSchema.findOne({
+        id: studentId
+    }).then( student => {
+        if (student) {
+            errors.id = "Student already exist";
+            res.status(404).json(errors);
+        } else {
+            studentSchema.create(req.body, (error, data) => {
+                if (error) {
+                    return next(error);
+                } else {
+                    res.json(data);
+                }
+            })
+        }
+    }).catch(err => {
+        console.log(err);
+    })
 });
 
 // READ Students
@@ -42,16 +63,36 @@ router.route('/edit-student/:id').get((req, res) => {
 
 // Update Student
 router.route('/update-student/:id').put((req, res, next) => {
-  studentSchema.findByIdAndUpdate(req.params.id, {
-    $set: req.body
-  }, (error, data) => {
-    if (error) {
-      return next(error);
-    } else {
-      res.json(data);
-      console.log('Student updated successfully !')
+    const {errors, isValid} = studentValidator(req.body);
+
+    if (!isValid) {
+        return res.status(400).json(errors);
     }
-  });
+
+    const studentId = req.body.id;
+
+    studentSchema.findOne({
+        id: studentId
+    }).then( student => {
+        if (student) {
+            errors.id = "Student already exist";
+            res.status(404).json(errors);
+        } else {
+            studentSchema.findByIdAndUpdate(req.params.id, {
+                $set: req.body
+            }, (error, data) => {
+                if (error) {
+                    return next(error);
+                } else {
+                    res.json(data);
+                    // console.log('Student updated successfully !')
+                }
+            })
+        }
+    }).catch(err => {
+        console.log(err);
+    })
+
 });
 
 // Delete Student

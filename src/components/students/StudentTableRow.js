@@ -29,7 +29,8 @@ export default class StudentTableRow extends Component {
         e.preventDefault();
         axios.delete('http://localhost:4000/students/delete-student/' + this.props.obj._id)
             .then((res) => {
-                console.log('Student successfully deleted!')
+                console.log('Student successfully deleted!');
+                this.close();
             }).catch((error) => {
                 console.log(error)
             })
@@ -38,11 +39,11 @@ export default class StudentTableRow extends Component {
     render() {
         return (
             <tr>
-                <td>{this.props.obj.student_id}</td>
-                <td>{this.props.obj.student_firstName}</td>
-                <td>{this.props.obj.student_lastName}</td>
-                <td>{this.props.obj.student_address}</td>
-                <td><Moment format="DD/MM/YYYY">{this.props.obj.student_dob}</Moment></td>
+                <td>{this.props.obj.id}</td>
+                <td>{this.props.obj.firstName}</td>
+                <td>{this.props.obj.lastName}</td>
+                <td>{this.props.obj.address}</td>
+                <td><Moment format="DD/MM/YYYY">{this.props.obj.dob}</Moment></td>
                 <td>
                     <Link className="edit-link" to={"/edit-student/" + this.props.obj._id}>
                         Edit

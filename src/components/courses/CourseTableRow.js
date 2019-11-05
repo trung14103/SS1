@@ -27,7 +27,8 @@ export default class CourseTableRow extends Component {
     deleteCourse() {
         axios.delete('http://localhost:4000/courses/delete-course/' + this.props.obj._id)
             .then((res) => {
-                console.log('Course successfully deleted!')
+                console.log('Course successfully deleted!');
+                this.close();
             }).catch((error) => {
                 console.log(error)
             })
@@ -36,9 +37,9 @@ export default class CourseTableRow extends Component {
     render() {
         return (
             <tr>
-                <td>{this.props.obj.course_id}</td>
-                <td>{this.props.obj.course_name}</td>
-                <td>{this.props.obj.course_prerequisites}</td>
+                <td>{this.props.obj.id}</td>
+                <td>{this.props.obj.name}</td>
+                <td>{this.props.obj.prerequisites}</td>
                 <td>
                     <Link className="edit-link" to={"/edit-course/" + this.props.obj._id}>
                         Edit

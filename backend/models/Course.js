@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let courseSchema = new Schema({
-    course_id: {
-        type: Number,
+    id: {
+        type: String,
         unique: true,
         required: true
     },
-    course_name: {
+    name: {
         type: String,
         required: true
     },
-    course_prerequisites: {
+    prerequisites: {
         type: String
     }
 },{

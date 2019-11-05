@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
+import Validator from '../utils/validator';
 import axios from 'axios';
+import StudentOpts from './StudentOpts';
+import CourseOpts from './CourseOpts';
 
 export default class EditEnrolment extends Component {
 
   constructor(props) {
     super(props)
 
-    this.onChangeStudent = this.onChangeStudent.bind(this);
-    this.onChangeCourse = this.onChangeCourse.bind(this);
-    this.onChangeSemester = this.onChangeSemester.bind(this);
-    this.onChangeFinalGrade = this.onChangeFinalGrade.bind(this);
+    this.onHandleInput = this.onHandleInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     // State
@@ -19,12 +19,15 @@ export default class EditEnrolment extends Component {
       student: '',
       course: '',
       semester: '',
-      finalGrade: ''
+      finalGrade: '',
+      students : [],
+      courses: [],
+      errors: {}
     }
   }
 
   componentDidMount() {
-    axios.get('http://localhost:4000/students/edit-enrolment/' + this.props.match.params.id)
+    axios.get('http://localhost:4000/enrolments/edit-enrolment/' + this.props.match.params.id)
       .then(res => {
         this.setState({
           student: res.data.student,
@@ -35,25 +38,32 @@ export default class EditEnrolment extends Component {
       })
       .catch((error) => {
         console.log(error);
+      });
+    axios.get('http://localhost:4000/students/')
+      .then(response => {
+        this.setState({
+          students: response.data
+        });
       })
+      .catch((error) => {
+        console.log(error);
+      });
+    axios.get('http://localhost:4000/courses/')
+      .then(response => {
+        this.setState({
+          courses: response.data
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-  onChangeStudent(e) {
-    this.setState({ student: e.target.value })
-  }
-
-  onChangeCourse(e) {
-    this.setState({ course: e.target.value })
-  }
-
-  onChangeSemester(e) {
-    this.setState({ semester: e.target.value })
-  }
-
-  onChangeFinalGrade(e) {
-    this.setState({ finalGrade: e.target.value })
-  }
-
+  onHandleInput = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
   onSubmit(e) {
     e.preventDefault()
@@ -67,33 +77,52 @@ export default class EditEnrolment extends Component {
 
     axios.put('http://localhost:4000/enrolments/update-enrolment/' + this.props.match.params.id, enrolmentObject)
       .then((res) => {
-        console.log(res.data)
-        console.log('Enrolment successfully updated')
+        console.log(res.data);
+        // console.log('Enrolment successfully updated');
+        this.props.history.push('/enrolment-list');
       }).catch((error) => {
-        console.log(error)
+        this.setState({
+          errors: error.response.data
+        })
       })
 
-    this.props.history.push('/enrolment-list');
   }
 
+  StudentOpts() {
+    return this.state.students.map((response,i) => {
+      return <StudentOpts obj={response} key={i}/>;
+    });
+  }
+
+  CourseOpts() {
+    return this.state.courses.map((response,i) => {
+      return <CourseOpts obj={response} key={i}/>;
+    });
+  }
 
   render() {
-    return (<div className="form-wrapper">
+    const {errors} = this.state;
+    return (
+      <div className="form-wrapper">
       <h1 className="page-header">Update Enrolment</h1>
       <Form onSubmit={this.onSubmit}>
-        <Form.Group controlId="Id">
+      <Form.Group controlId="Id">
           <Form.Label>Student<span> *</span></Form.Label>
-          <Form.Control type="number" value={this.state.student} onChange={this.onChangeStudent} required/>
-        </Form.Group>
+          <Form.Control type="number" name="student" list="student-id-opts" placeholder="Student ID" value={this.state.student} onChange={this.onHandleInput} autoComplete="off"/>
+           <datalist id="student-id-opts">{this.StudentOpts()}</datalist>
+           {errors.student && <div className="validation" style={{display: 'block'}}>{errors.student}</div>}
+      </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Course<span> *</span></Form.Label>
-          <Form.Control type="text" value={this.state.course} onChange={this.onChangeCourse} required/>
+          <Form.Control type="text" name="course" list="course-id-opts" placeholder="Course ID" value={this.state.course} onChange={this.onHandleInput} autoComplete="off"/>
+          <datalist id="course-id-opts">{this.CourseOpts()}</datalist>
+          {errors.course && <div className="validation" style={{display: 'block'}}>{errors.course}</div>}
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Semester<span> *</span></Form.Label>
-          <Form.Control as="select" value={this.state.semester} onChange={this.onChangeSemester} required>
+          <Form.Control as="select" name="semester" value={this.state.semester} onChange={this.onHandleInput}>
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -103,11 +132,13 @@ export default class EditEnrolment extends Component {
             <option>7</option>
             <option>8</option>
           </Form.Control>
+          {errors.semester && <div className="validation" style={{display: 'block'}}>{errors.semester}</div>}
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Final Grade</Form.Label>
-          <Form.Control as="select" value={this.state.finalGrade} onChange={this.onChangeFinalGrade} required>
+          <Form.Control as="select" name="finalGrade" value={this.state.finalGrade} onChange={this.onHandleInput}>
+            <option>Not Graded</option>
             <option>P</option>
             <option>G</option>
             <option>E</option>

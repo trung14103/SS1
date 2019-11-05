@@ -2,24 +2,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let studentSchema = new Schema({
-    student_id: {
+    id: {
         type: Number,
         unique: true,
         required: true       
     },
-    student_firstName: {
+    firstName: {
         type: String,
         required: true
     },
-    student_lastName: {
+    lastName: {
         type: String,
         required: true
     },
-    student_address: {
-        type: String
+    address: {
+        type: String,
+        required: true
     },
-    student_dob:{
-        type: Date
+    dob:{
+        type: Date,
+        required: true
     }
 }, {
     collection: 'students'

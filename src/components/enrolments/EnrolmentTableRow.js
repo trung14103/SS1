@@ -27,7 +27,8 @@ export default class EnrolmentTableRow extends Component {
     deleteEnrolment() {
         axios.delete('http://localhost:4000/enrolments/delete-enrolment/' + this.props.obj._id)
             .then((res) => {
-                console.log('Enrolment successfully deleted!')
+                console.log('Enrolment successfully deleted!');
+                this.close();
             }).catch((error) => {
                 console.log(error)
             })

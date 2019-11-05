@@ -1,7 +1,4 @@
 body{
-  background-image: url("./img/bground.jpg");
-  background-position: fixed; 
-  background-size: cover;
   margin: 0;
 }
 
@@ -33,7 +30,7 @@ body h3 {
 
 .form-wrapper{
   max-width: 80%;
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 .table-wrapper {
@@ -174,4 +171,12 @@ label span{
 
 .container {
   margin-top: 0 !important;
+}
+
+[list]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.pagination {
+  float: right;
 }
