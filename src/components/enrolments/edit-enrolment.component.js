@@ -30,8 +30,8 @@ export default class EditEnrolment extends Component {
     axios.get('http://localhost:4000/enrolments/edit-enrolment/' + this.props.match.params.id)
       .then(res => {
         this.setState({
-          student: res.data.student,
-          course: res.data.course,
+          student: res.data.studentRef.id,
+          course: res.data.courseRef.id,
           semester: res.data.semester,
           finalGrade: res.data.finalGrade
         });
@@ -85,7 +85,6 @@ export default class EditEnrolment extends Component {
           errors: error.response.data
         })
       })
-
   }
 
   StudentOpts() {
@@ -126,11 +125,6 @@ export default class EditEnrolment extends Component {
             <option>1</option>
             <option>2</option>
             <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
           </Form.Control>
           {errors.semester && <div className="validation" style={{display: 'block'}}>{errors.semester}</div>}
         </Form.Group>
@@ -139,9 +133,10 @@ export default class EditEnrolment extends Component {
           <Form.Label>Final Grade</Form.Label>
           <Form.Control as="select" name="finalGrade" value={this.state.finalGrade} onChange={this.onHandleInput}>
             <option>Not Graded</option>
-            <option>P</option>
-            <option>G</option>
-            <option>E</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
             <option>F</option>
           </Form.Control>
         </Form.Group>

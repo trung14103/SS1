@@ -3,20 +3,20 @@ const Schema = mongoose.Schema;
 
 
 let enrolmentSchema = new Schema({
-    student: {
-        type: String,
-        required: true
-    },
-    course: {
-        type: String,
-        required: true
-    },
     semester: {
         type: Number,
         required: true
     },
     finalGrade: {
         type: String,
+    },
+    studentRef: {
+        type: Schema.Types.ObjectId,
+        ref: 'Student'
+    },
+    courseRef: {
+        type: Schema.Types.ObjectId,
+        ref: 'Course'
     }
 },{
         collection: 'enrolments'    

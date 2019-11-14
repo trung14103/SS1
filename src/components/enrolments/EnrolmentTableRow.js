@@ -37,8 +37,8 @@ export default class EnrolmentTableRow extends Component {
     render() {
         return (
             <tr>
-                <td>{this.props.obj.student}</td>
-                <td>{this.props.obj.course}</td>
+                <td>{this.props.obj.studentRef.id}</td>
+                <td>{this.props.obj.courseRef.name}</td>
                 <td>{this.props.obj.semester}</td>
                 <td>{this.props.obj.finalGrade}</td>
                 <td>

@@ -21,6 +21,7 @@ export default class CreateEnrolment extends Component {
             course: '',
             semester: '',
             finalGrade: '',
+            Student: '',
             students: [],
             courses: [],
             errors: {}
@@ -40,7 +41,8 @@ export default class CreateEnrolment extends Component {
             student: this.state.student,
             course: this.state.course,
             semester: this.state.semester,
-            finalGrade: this.state.finalGrade
+            finalGrade: this.state.finalGrade,
+            Student: this.state.Student
         };
 
 
@@ -52,7 +54,8 @@ export default class CreateEnrolment extends Component {
                     student: '',
                     course: '',
                     semester: '',
-                    finalGrade: ''
+                    finalGrade: '',
+                    Student: ''
                 });
 
                 this.props.history.push('/enrolment-list');
@@ -104,6 +107,10 @@ export default class CreateEnrolment extends Component {
             <div className="form-wrapper">
                 <h1 className="page-header">Create Enrolment</h1>
                 <Form onSubmit={this.onSubmit}>
+
+                    <Form.Group controlId="Student">
+                        <Form.Control type="text" name ="Student" value={this.state.Student} onChange={this.onHandleInput} style={{display: 'none'}}/>
+                    </Form.Group>
                     <Form.Group controlId="Id">
                         <Form.Label>Student<span> *</span></Form.Label>
                         <Form.Control type="number" name="student" list="student-id-opts" placeholder="Student ID"
@@ -129,11 +136,6 @@ export default class CreateEnrolment extends Component {
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
                         </Form.Control>
                         {errors.semester &&
                         <div className="validation" style={{display: 'block'}}>{errors.semester}</div>}
@@ -144,9 +146,10 @@ export default class CreateEnrolment extends Component {
                         <Form.Control as="select" name="finalGrade" value={this.state.finalGrade}
                                       onChange={this.onHandleInput}>
                             <option>Not Graded</option>
-                            <option>P</option>
-                            <option>G</option>
-                            <option>E</option>
+                            <option>A</option>
+                            <option>B</option>
+                            <option>C</option>
+                            <option>D</option>
                             <option>F</option>
                         </Form.Control>
                     </Form.Group>

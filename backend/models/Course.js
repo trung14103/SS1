@@ -13,7 +13,11 @@ let courseSchema = new Schema({
     },
     prerequisites: {
         type: String
-    }
+    },
+    enrol:[{
+        type:  Schema.Types.ObjectId,
+        ref: 'Enrolment'
+    }]
 },{
         collection: 'courses' 
         

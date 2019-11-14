@@ -20,6 +20,8 @@ import CreateEnrolment from "./components/enrolments/create-enrolment.component"
 import EditEnrolment from "./components/enrolments/edit-enrolment.component";
 import EnrolmentList from "./components/enrolments/enrolment-list.component";
 import Homepage from "./components/home";
+import SortedList from "./components/enrolments/sorted-list.component";
+import FailedStudentList from "./components/enrolments/failedStudent_list";
 
 
 function App() {
@@ -81,6 +83,8 @@ function App() {
                 <Route path="/create-enrolment" component={CreateEnrolment} />
                 <Route path="/edit-enrolment/:id" component={EditEnrolment} />
                 <Route path="/enrolment-list" component={EnrolmentList} />
+                <Route path="/failed-students" component={FailedStudentList}/>
+                <Route path="/sorted-enrolments" component={SortedList} />
               </Switch>
             </div>
           </Col>

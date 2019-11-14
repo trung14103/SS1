@@ -22,7 +22,11 @@ let studentSchema = new Schema({
     dob:{
         type: Date,
         required: true
-    }
+    },
+    enrol:[{
+        type:  Schema.Types.ObjectId,
+        ref: 'Enrolment'
+    }]
 }, {
     collection: 'students'
   });
