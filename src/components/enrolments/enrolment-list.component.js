@@ -161,14 +161,16 @@ export default class EnrolmentList extends Component {
   closeCourse() {
     this.setState({
       showModalCourse: false,
-      studentEnrol: []
+      studentEnrol: [],
+      errors: {}
     });
   }
 
   closeStudent() {
     this.setState({
       showModalStudent: false,
-      courseEnrol: []
+      courseEnrol: [],
+      errors: {}
     });
   }
 
