@@ -4,7 +4,7 @@ module.exports = function validateCourseInput(data) {
     let errors = {};
     let isFormValid = true;
 
-    if(!data.id || (data.id.trim().length < 5 || data.id.trim().length > 15)) {
+    if(!data.id || (data.id.length < 5 || data.id.trim().length > 15)) {
         isFormValid = false;
         errors.id = "Please provide correct course id (Length: 5-10)"
     }

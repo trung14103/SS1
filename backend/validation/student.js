@@ -3,8 +3,10 @@ const validator = require('validator');
 module.exports = function validateStudentInput(data) {
     let errors = {};
     let isFormValid = true;
+    let toDate =new Date("01/01/2002");
+    let frmDate = new Date ("01/01/1960").getDate();
 
-    if(!data.id || (data.id.trim().length < 5 && data.id.trim().length > 10)) {
+    if(!data.id || (data.id.length < 5 && data.length > 10)) {
         isFormValid = false;
         errors.id = "Please provide correct student id (Length: 5-10)"
     }
@@ -19,14 +21,14 @@ module.exports = function validateStudentInput(data) {
         errors.lastName = "Please provide correct student last name (Length: 2-10)"
     }
 
-    if(!data.address || (data.id.trim().address <8 && data.address.trim().length > 20) || typeof data.address !== 'string') {
+    if(!data.address || (data.address.trim() <8 && data.address.trim().length > 20) || typeof data.address !== 'string') {
         isFormValid = false;
         errors.address = "Please provide correct student address (Length: 8-20)"
     }
 
     if(!data.dob) {
         isFormValid = false;
-        errors.dob = "Please provide correct student date of birth"
+        errors.dob = "Please provide valid student date of birth"
     }
 
     return {

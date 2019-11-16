@@ -28,6 +28,7 @@ export default class EnrolmentList extends Component {
       enrolments: [],
       showModalCourse: false,
       showModalStudent: false,
+      errors: {},
       student_id: '',
       course_id: '',
       courseEnrol: [],
@@ -98,12 +99,14 @@ export default class EnrolmentList extends Component {
 
           this.setState({
             student_id: '',
-            courseEnrol: res.data
+            courseEnrol: res.data,
+            errors: {}
           });
         })
         .catch((err) => {
           this.setState({
-            errors: err.response.data
+            errors: err.response.data,
+            courseEnrol: []
           })
         });
 
@@ -119,16 +122,18 @@ export default class EnrolmentList extends Component {
 
     axios.post('http://localhost:4000/enrolments/course-enrolled-students', courseObject)
         .then(res => {
-          console.log(res.data[0].courseRef);
 
           this.setState({
             course_id: '',
-            studentEnrol: res.data
+            studentEnrol: res.data,
+            errors: {}
           });
+          console.log(this.state.studentEnrol)
         })
         .catch((err) => {
           this.setState({
-            errors: err.response.data
+            errors: err.response.data,
+            studentEnrol: []
           })
         });
 
@@ -154,11 +159,17 @@ export default class EnrolmentList extends Component {
   }
 
   closeCourse() {
-    this.setState({ showModalCourse: false });
+    this.setState({
+      showModalCourse: false,
+      studentEnrol: []
+    });
   }
 
   closeStudent() {
-    this.setState({ showModalStudent: false });
+    this.setState({
+      showModalStudent: false,
+      courseEnrol: []
+    });
   }
 
   openStudentView() {
@@ -183,10 +194,17 @@ export default class EnrolmentList extends Component {
 
 
   render() {
-    return (<div className="table-wrapper">
-      <Link className="create-link" to={"/failed-students"}><Button size="sm" variant="danger">View Failed Students</Button></Link>
+    const {errors} = this.state;
+    return (
+        <div className="table-wrapper">
+          <div className="page-head">
+            <div className="pghead1">
+              <h1 className="page-head">Enrolment List</h1>
+            </div>
+          </div>
+      <Link to={"/failed-students"}><Button size="sm" className="advbtn" variant="danger">View Failed Students</Button></Link>
 
-      <Button onClick={this.openCourseView} size="sm" variant="danger">View Course Enrolments</Button>
+      <Button className="advbtn" onClick={this.openCourseView} size="sm" variant="danger">View Course Enrolments</Button>
       <Modal show={this.state.showModalCourse} onHide={this.closeCourse}>
         <Modal.Header closeButton>
           <Modal.Title>Course Enrolments</Modal.Title>
@@ -198,6 +216,8 @@ export default class EnrolmentList extends Component {
               <Form.Control type="number" name="course_id" list="course-id-opts" placeholder="Course ID"
                             value={this.state.course_id} onChange={this.onHandleInput} autoComplete="off"/>
               <datalist id="course-id-opts">{this.CourseOpts()}</datalist>
+              {errors.course_id &&
+              <div className="validation" style={{display: 'block'}}>{errors.course_id}</div>}
               <Table striped bordered hover>
                 <thead className ="thead-skyblue">
                 <tr>
@@ -221,7 +241,7 @@ export default class EnrolmentList extends Component {
         </Modal.Footer>
       </Modal>
 
-      <Button onClick={this.openStudentView} size="sm" variant="danger">View Student Enrolments</Button>
+      <Button className="advbtn" onClick={this.openStudentView} size="sm" variant="danger">View Student Enrolments</Button>
       <Modal show={this.state.showModalStudent} onHide={this.closeStudent}>
         <Modal.Header closeButton>
           <Modal.Title>Student Enrolments</Modal.Title>
@@ -233,12 +253,14 @@ export default class EnrolmentList extends Component {
               <Form.Control type="number" name="student_id" list="student-id-opts" placeholder="Student ID"
                             value={this.state.student_id} onChange={this.onHandleInput} autoComplete="off"/>
               <datalist id="student-id-opts">{this.StudentOpts()}</datalist>
+              {errors.student_id &&
+              <div className="validation" style={{display: 'block'}}>{errors.student_id}</div>}
               <Table striped bordered hover>
                 <thead className ="thead-skyblue">
                 <tr>
                   <th>Course ID</th>
                   <th>Course Name</th>
-                  <th>Prequit</th>
+                  <th>Prerequisites</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -253,13 +275,18 @@ export default class EnrolmentList extends Component {
           <Button onClick={this.onSubmitStudent} variant="danger">View</Button>
         </Modal.Footer>
       </Modal>
+          <Link to={"/sorted-enrolments/"}>
+            <Button variant="primary" className="advbtn">
+              Sorted List
+            </Button>
+          </Link>
       <Link className="create-link" to={"/create-enrolment/"}>
         <Button variant="primary" size="lg">
           Create
         </Button>
       </Link>
       <Table striped bordered hover>
-        <thead className ="thead-skyblue">
+        <thead className ="thead-color">
         <tr>
           <th>Student</th>
           <th>Course</th>
@@ -275,3 +302,4 @@ export default class EnrolmentList extends Component {
     </div>);
   }
 }
+

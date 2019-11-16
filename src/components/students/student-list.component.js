@@ -67,7 +67,7 @@ export default class StudentList extends Component {
 
     const renderPageNumbers = pageNumbers.map((number) => {
       return (
-        <PageItem key={number} id={number} active={this.state.currentPage === number ? true : false} onClick={this.handleClick}>{number}</PageItem>
+        <PageItem key={number} id={number} active={this.state.currentPage === number} onClick={this.handleClick}>{number}</PageItem>
       );
     });
     return (

@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
-import Validator from '../utils/validator';
 import axios from 'axios';
 
 export default class EditStudent extends Component {
@@ -34,6 +33,7 @@ export default class EditStudent extends Component {
                     address: res.data.address,
                     dob: res.data.dob
                 });
+                console.log(this.state.dob)
             })
             .catch((error) => {
                 console.log(error);
@@ -80,7 +80,7 @@ export default class EditStudent extends Component {
 
                     <Form.Group controlId="ID">
                         <Form.Label>ID<span> *</span></Form.Label>
-                        <Form.Control type="text" name="id" placeholder="ID" value={this.state.id}
+                        <Form.Control className={"disabledInput"} type="text" name="id" placeholder="ID" value={this.state.id}
                                       onChange={this.onHandleInput}/>
                         {errors.id && <div className="validation" style={{display: 'block'}}>{errors.id}</div>}
                     </Form.Group>

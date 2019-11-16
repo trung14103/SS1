@@ -117,51 +117,60 @@ router.route('/delete-enrolment/:id').delete((req, res, next) => {
     })
 });
 
-// Find Course of specified Student
-router.route('/student-courses/:student').get((req, res) => {
-    enrolmentSchema.find({student: req.params.student}, {course: 1})
-        .then(courses => {
-            res.json(courses);
-        })
-        .catch((err) => {
-            res.status(404).json(err);
-        })
-});
-
+//Find enrolled students of a specific course
 router.route('/course-enrolled-students').post((req, res) => {
+    let errors = {};
     courseSchema.findOne({id: req.body.course_id}).then(course => {
+        if (!course) {
+            errors.course_id = 'This Course Not Exist';
+            res.status(404).json(errors);
+        }
         enrolmentSchema.find({ courseRef: course._id  }).
         populate({path: 'studentRef'}).
         exec(function (err, students) {
             if (err) {
                 res.status(404).json(err);
-            };
-            console.log(students);
-            res.json(students);
+            } else if (students.length === 0) {
+                errors.course_id = 'No Student Has Enrol This Course Yet';
+                res.status(404).json(errors);
+            } else {
+                res.json(students);
+            }
         })
     })
-    // }).catch((err) => {
-    //     res.status(404).json(err);
-    // })
+        .catch((err) => {
+            res.status(404).json(err);
+        })
 });
 
+
+//Find courses of a specific student
 router.route('/student-enrol_course').post((req, res) => {
+    let errors = {};
     studentSchema.findOne({id: req.body.student_id}).then(student => {
+        if (!student) {
+            errors.student_id = 'This Student Not Exist';
+            res.status(404).json(errors);
+        }
         enrolmentSchema.find({ studentRef: student._id  }).
         populate({path: 'courseRef'}).
         exec(function (err, courses) {
             if (err) {
                 res.status(404).json(err);
-            };
-            res.json(courses);
+            } else if (courses.length === 0) {
+                errors.student_id = 'This Student Has Not Enrolled Any Course Yet';
+                res.status(404).json(errors);
+            } else {
+                res.json(courses);
+            }
         })
     })
-    // }).catch((err) => {
-    //     res.status(404).json(err);
-    // })
+        .catch((err) => {
+            res.status(404).json(err);
+        })
 });
 
-
+//Find list of failed students
 router.route('/failed-students').get((req, res) => {
     enrolmentSchema.find({finalGrade: 'F'})
         .populate({path: 'studentRef'})
@@ -173,7 +182,10 @@ router.route('/failed-students').get((req, res) => {
                 res.json(student);
             }
         })
-})
+        .catch((err) => {
+            res.status(404).json(err);
+        })
+});
 
 //
 

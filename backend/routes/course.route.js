@@ -20,7 +20,7 @@ router.route('/create-course').post((req, res, next) => {
 
     courseSchema.findOne({
         id: courseId
-    }).then( course => {
+    }).then(course => {
         if (course) {
             errors.id = "Course already exist";
             res.status(404).json(errors);
@@ -68,31 +68,15 @@ router.route('/update-course/:id').put((req, res, next) => {
     if (!isValid) {
         return res.status(400).json(errors);
     }
-
-    const courseId = req.body.id;
-
-    courseSchema.findOne({
-        id: courseId
-    }).then( course => {
-        if (course) {
-            errors.id = "course already exist";
-            res.status(404).json(errors);
+    courseSchema.findByIdAndUpdate(req.params.id, {
+        $set: req.body
+    }, (error, data) => {
+        if (error) {
+            return next(error);
         } else {
-            courseSchema.findByIdAndUpdate(req.params.id, {
-                $set: req.body
-            }, (error, data) => {
-                if (error) {
-                    return next(error);
-                } else {
-                    res.json(data);
-                    // console.log('course updated successfully !')
-                }
-            })
+            res.json(data);
         }
-    }).catch(err => {
-        console.log(err);
     })
-
 });
 
 // Delete course

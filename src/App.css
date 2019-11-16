@@ -109,8 +109,9 @@ h3 {
   width: 100px;
 }
 
-#disabledInput {
+.disabledInput {
   cursor: not-allowed;
+  pointer-events:none;
   background: #dddddd;
 }
 
@@ -179,4 +180,11 @@ label span{
 
 .pagination {
   float: right;
+}
+
+.advbtn {
+  height: 50px;
+  margin: 10px;
+  margin-left: 0;
+  padding: 10px;
 }

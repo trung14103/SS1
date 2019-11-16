@@ -7,7 +7,7 @@ import PageItem from 'react-bootstrap/PageItem';
 import FailedStudentRow from './FailedStudentRow';
 
 
-export default class EnrolmentList extends Component {
+export default class FailedStudentList extends Component {
 
     constructor(props) {
         super(props)
