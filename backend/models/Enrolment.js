@@ -10,6 +10,9 @@ let enrolmentSchema = new Schema({
     finalGrade: {
         type: String,
     },
+    grade: {
+        type: Number,
+    },
     studentRef: {
         type: Schema.Types.ObjectId,
         ref: 'Student'
@@ -18,8 +21,8 @@ let enrolmentSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Course'
     }
-},{
-        collection: 'enrolments'    
+}, {
+    collection: 'enrolments'
 });
 
 const Enrolment = mongoose.model('Enrolment', enrolmentSchema);

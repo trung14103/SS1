@@ -79,9 +79,9 @@ export default class EditStudent extends Component {
                 <Form onSubmit={this.onSubmit}>
 
                     <Form.Group controlId="ID">
-                        <Form.Label>ID<span> *</span></Form.Label>
+                        <Form.Label>Student ID<span> *</span></Form.Label>
                         <Form.Control className={"disabledInput"} type="text" name="id" placeholder="ID" value={this.state.id}
-                                      onChange={this.onHandleInput}/>
+                                      onChange={this.onHandleInput} readOnly/>
                         {errors.id && <div className="validation" style={{display: 'block'}}>{errors.id}</div>}
                     </Form.Group>
 

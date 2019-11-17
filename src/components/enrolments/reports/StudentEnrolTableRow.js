@@ -4,8 +4,6 @@ export default class EnrolmentTableRow extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-        };
     }
 
 

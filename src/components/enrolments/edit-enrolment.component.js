@@ -107,34 +107,22 @@ export default class EditEnrolment extends Component {
       <Form onSubmit={this.onSubmit}>
       <Form.Group controlId="Id">
           <Form.Label>Student<span> *</span></Form.Label>
-          <Form.Control type="number" name="student" list="student-id-opts" placeholder="Student ID" value={this.state.student} onChange={this.onHandleInput} autoComplete="off"/>
+          <Form.Control className={"disabledInput"} type="number" name="student" list="student-id-opts" placeholder="Student ID" value={this.state.student} onChange={this.onHandleInput} autoComplete="off" readOnly/>
            <datalist id="student-id-opts">{this.StudentOpts()}</datalist>
-           {errors.student && <div className="validation" style={{display: 'block'}}>{errors.student}</div>}
       </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Course<span> *</span></Form.Label>
-          <Form.Control type="text" name="course" list="course-id-opts" placeholder="Course ID" value={this.state.course} onChange={this.onHandleInput} autoComplete="off"/>
+          <Form.Control className={"disabledInput"} type="text" name="course" list="course-id-opts" placeholder="Course ID" value={this.state.course} onChange={this.onHandleInput} autoComplete="off" readOnly/>
           <datalist id="course-id-opts">{this.CourseOpts()}</datalist>
-          {errors.course && <div className="validation" style={{display: 'block'}}>{errors.course}</div>}
         </Form.Group>
 
         <Form.Group controlId="Name">
           <Form.Label>Semester<span> *</span></Form.Label>
-          <Form.Control as="select" name="semester" value={this.state.semester} onChange={this.onHandleInput}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-          </Form.Control>
-          {errors.semester && <div className="validation" style={{display: 'block'}}>{errors.semester}</div>}
+          <Form.Control className={"disabledInput"} type="text" name="semester" value={this.state.semester} onChange={this.onHandleInput} readOnly/>
         </Form.Group>
 
-        <Form.Group controlId="Name">
+        <Form.Group controlId="Grade">
           <Form.Label>Final Grade</Form.Label>
           <Form.Control as="select" name="finalGrade" value={this.state.finalGrade} onChange={this.onHandleInput}>
             <option>Not Graded</option>
@@ -143,6 +131,7 @@ export default class EditEnrolment extends Component {
             <option>G</option>
             <option>F</option>
           </Form.Control>
+          {errors.finalGrade && <div className="validation" style={{display: 'block'}}>{errors.finalGrade}</div>}
         </Form.Group>
 
         <Button variant="success" size="lg" block="block" type="submit">

@@ -6,8 +6,8 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import EnrolmentTableRow from './EnrolmentTableRow';
-import StudentEnrolTableRow from "./StudentEnrolTableRow";
-import CourseEnrolTableRow from "./CourseEnrolTableRow";
+import StudentEnrolTableRow from "./reports/StudentEnrolTableRow";
+import CourseEnrolTableRow from "./reports/CourseEnrolTableRow";
 import StudentOpts from './StudentOpts';
 import CourseOpts from './CourseOpts';
 
@@ -162,6 +162,7 @@ export default class EnrolmentList extends Component {
     this.setState({
       showModalCourse: false,
       studentEnrol: [],
+      course_id: '',
       errors: {}
     });
   }
@@ -170,6 +171,7 @@ export default class EnrolmentList extends Component {
     this.setState({
       showModalStudent: false,
       courseEnrol: [],
+      student_id: '',
       errors: {}
     });
   }
@@ -220,8 +222,9 @@ export default class EnrolmentList extends Component {
               <datalist id="course-id-opts">{this.CourseOpts()}</datalist>
               {errors.course_id &&
               <div className="validation" style={{display: 'block'}}>{errors.course_id}</div>}
+              <br/>
               <Table striped bordered hover>
-                <thead className ="thead-skyblue">
+                <thead className ="thead-color">
                 <tr>
                   <th>Student ID</th>
                   <th>Student Name</th>
@@ -257,8 +260,9 @@ export default class EnrolmentList extends Component {
               <datalist id="student-id-opts">{this.StudentOpts()}</datalist>
               {errors.student_id &&
               <div className="validation" style={{display: 'block'}}>{errors.student_id}</div>}
+              <br/>
               <Table striped bordered hover>
-                <thead className ="thead-skyblue">
+                <thead className ="thead-color">
                 <tr>
                   <th>Course ID</th>
                   <th>Course Name</th>

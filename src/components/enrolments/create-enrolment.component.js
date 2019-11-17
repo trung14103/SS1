@@ -10,7 +10,7 @@ import CourseOpts from './CourseOpts';
 export default class CreateEnrolment extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.onHandleInput = this.onHandleInput.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -20,8 +20,6 @@ export default class CreateEnrolment extends Component {
             student: '',
             course: '',
             semester: '',
-            finalGrade: '',
-            Student: '',
             students: [],
             courses: [],
             errors: {}
@@ -41,8 +39,7 @@ export default class CreateEnrolment extends Component {
             student: this.state.student,
             course: this.state.course,
             semester: this.state.semester,
-            finalGrade: this.state.finalGrade,
-            Student: this.state.Student
+            // finalGrade: this.state.finalGrade,
         };
 
 
@@ -54,8 +51,6 @@ export default class CreateEnrolment extends Component {
                     student: '',
                     course: '',
                     semester: '',
-                    finalGrade: '',
-                    Student: ''
                 });
 
                 this.props.history.push('/enrolment-list');
@@ -144,18 +139,6 @@ export default class CreateEnrolment extends Component {
                         </Form.Control>
                         {errors.semester &&
                         <div className="validation" style={{display: 'block'}}>{errors.semester}</div>}
-                    </Form.Group>
-
-                    <Form.Group controlId="Name">
-                        <Form.Label>Final Grade</Form.Label>
-                        <Form.Control as="select" name="finalGrade" value={this.state.finalGrade}
-                                      onChange={this.onHandleInput}>
-                            <option>Not Graded</option>
-                            <option>P</option>
-                            <option>E</option>
-                            <option>G</option>
-                            <option>F</option>
-                        </Form.Control>
                     </Form.Group>
 
                     <Button variant="danger" size="lg" block="block" type="submit">

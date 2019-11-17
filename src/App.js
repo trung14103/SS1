@@ -21,7 +21,7 @@ import EditEnrolment from "./components/enrolments/edit-enrolment.component";
 import EnrolmentList from "./components/enrolments/enrolment-list.component";
 import Homepage from "./components/home";
 import SortedList from "./components/enrolments/sorted-list.component";
-import FailedStudentList from "./components/enrolments/failedStudent_list";
+import FailedStudentList from "./components/enrolments/reports/failedStudent-list";
 
 
 function App() {

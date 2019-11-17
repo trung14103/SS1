@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import Pagination from 'react-bootstrap/Pagination';
@@ -37,6 +36,7 @@ export default class FailedStudentList extends Component {
                 console.log(error);
             })
     }
+
     componentDidUpdate() {
         axios.get('http://localhost:4000/enrolments/failed-students')
             .then(res => {

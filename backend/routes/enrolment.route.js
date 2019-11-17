@@ -19,9 +19,7 @@ router.route('/create-enrolment').post((req, res, next) => {
 
     const studentId = req.body.student;
     const courseId = req.body.course;
-    const finalGrade = req.body.finalGrade;
     const semester = req.body.semester;
-
     studentSchema.findOne({id: studentId})
         .then(student => {
             courseSchema.findOne({id: courseId})
@@ -35,31 +33,27 @@ router.route('/create-enrolment').post((req, res, next) => {
                         courseRef: course._id,
                         studentRef: student._id,
                         semester: semester,
-                        finalGrade: finalGrade
-                    }).save((err,data) => {
+                    }).save((err, data) => {
                         if (err) {
                             res.status(404).json(err);
                         } else {
                             res.json(data);
-                            console.log(data);
                         }
                     })
                 })
                 .catch(err => {
                     res.status(404).json(err)
-                    console.log(errors);
                 })
         })
         .catch(err => {
             res.status(404).json(err);
-            console.log(errors);
         })
 });
 
 // READ enrolments
 router.route('/').get((req, res) => {
     enrolmentSchema.find()
-        .populate({path: 'studentRef', options: { sort: { 'id': 1 } }})
+        .populate({path: 'studentRef', options: {sort: {'id': 1}}})
         .populate({path: 'courseRef'})
         .exec((error, data) => {
             if (error) {
@@ -88,21 +82,37 @@ router.route('/edit-enrolment/:id').get((req, res) => {
 // Update enrolment
 router.route('/update-enrolment/:id').put((req, res, next) => {
     const {errors, isValid} = enrolValidator(req.body);
+
     if (!isValid) {
         res.status(404).json(errors);
     }
+    const finalGrade = req.body.finalGrade;
+    let gradeNum;
+
+    if (finalGrade === "F") {
+        gradeNum = 1;
+    } else if (finalGrade === "P") {
+        gradeNum = 2;
+    } else if (finalGrade === "G") {
+        gradeNum = 3;
+    } else {
+        gradeNum = 4;
+    }
 
     enrolmentSchema.findByIdAndUpdate(req.params.id, {
-        $set: req.body
+        $set: {
+            finalGrade: req.body.finalGrade,
+            grade: gradeNum
+        }
     }, (error, data) => {
+
         if (error) {
             return next(error);
         } else {
             res.json(data);
-            // console.log('Enrolment updated successfully !');
         }
     })
-})
+});
 
 // Delete enrolment
 router.route('/delete-enrolment/:id').delete((req, res, next) => {
@@ -125,9 +135,7 @@ router.route('/course-enrolled-students').post((req, res) => {
             errors.course_id = 'This Course Not Exist';
             res.status(404).json(errors);
         }
-        enrolmentSchema.find({ courseRef: course._id  }).
-        populate({path: 'studentRef'}).
-        exec(function (err, students) {
+        enrolmentSchema.find({courseRef: course._id}).populate({path: 'studentRef'}).exec(function (err, students) {
             if (err) {
                 res.status(404).json(err);
             } else if (students.length === 0) {
@@ -152,9 +160,7 @@ router.route('/student-enrol_course').post((req, res) => {
             errors.student_id = 'This Student Not Exist';
             res.status(404).json(errors);
         }
-        enrolmentSchema.find({ studentRef: student._id  }).
-        populate({path: 'courseRef'}).
-        exec(function (err, courses) {
+        enrolmentSchema.find({studentRef: student._id}).populate({path: 'courseRef'}).exec(function (err, courses) {
             if (err) {
                 res.status(404).json(err);
             } else if (courses.length === 0) {
@@ -182,9 +188,9 @@ router.route('/failed-students').get((req, res) => {
                 res.json(student);
             }
         })
-        .catch((err) => {
-            res.status(404).json(err);
-        })
+    // .catch((err) => {
+    //     res.status(404).json(err);
+    // })
 });
 
 //

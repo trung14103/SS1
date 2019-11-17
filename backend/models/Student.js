@@ -21,7 +21,8 @@ let studentSchema = new Schema({
     },
     dob:{
         type: Date,
-        max: '2000/1/1',
+        max: '2000/01/01',
+        min: '1980/01/01',
         required: true
     },
     enrol:[{
